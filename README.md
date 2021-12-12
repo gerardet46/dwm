@@ -8,6 +8,8 @@ to setup the computer, as I use `flybinds` (in my repo) to configure it. In DWM 
 press the `\\` key it opens the flybinds program. This it works thanks to **fsignals** patch,
 as I can call dwm functions from shell scripts.
 
+![Preview of my dwm's built](example.png)
+
 dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
