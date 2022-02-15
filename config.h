@@ -131,6 +131,7 @@ static const char *termcmd[]  = { "st", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ 0,                            XK_F2,      spawn,         SHCMD("dmenu_run") },
+	{ ShiftMask,                    XK_F2,      spawn,         SHCMD("passmenu") },
 	{ MODKEY,                       XK_F2,      spawn,         SHCMD("j4-dmenu-desktop") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -227,7 +228,8 @@ static Key keys[] = {
 
     /* SCRIPTS */
     { 0,                            XK_F3,       spawn,   SHCMD("$HOME/scripts/emoji.sh") },
-    { 0,                            0xba,        spawn,   SHCMD("flybinds") },
+    /*{ 0,                            0xba,        spawn,   SHCMD("xdotool type '\\'") },*/
+    { 0,                            0xa1,        spawn,   SHCMD("flybinds") },   //
     { 0,                            XK_Print,    spawn,   SHCMD("$HOME/scripts/captura.sh") },
     { MODKEY,                       XK_p,        spawn,   SHCMD("$HOME/scripts/monitors.sh") },
     { MODKEY,                       XK_c,        spawn,   SHCMD("$HOME/scripts/webcam.sh") },
