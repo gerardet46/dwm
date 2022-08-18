@@ -1,47 +1,43 @@
 /* See LICENSE file for copyright and license details. */
-#include <gcolors.h>
 
 /* appearance */
-static const unsigned int borderpx       = 2;        /* border pixel of windows */
-static const unsigned int snap           = 32;       /* snap pixel */
-static const unsigned int gappih         = 7;        /* horiz inner gap between windows */
-static const unsigned int gappiv         = 7;        /* vert inner gap between windows */
-static const unsigned int gappoh         = 8;        /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov         = 8;        /* vert outer gap between windows and screen edge */
-static       int smartgaps               = 1;        /* 1 means no outer gap when there is only one window */
-static       int smartborders            = 1;        /* 1 means no outer gap when there is only one window */
-static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
-static const unsigned int systrayonleft  = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
-static const unsigned int systrayspacing = 2;   /* systray spacing */
-static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray             = 1;        /* 0 means no systray */
-static const int showbar                 = 1;        /* 0 means no bar */
-static const int topbar                  = 1;        /* 0 means bottom bar */
-static const int user_bh                 = 24;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static const char *fonts[]               = { "Ubuntu:size=12", "FontAwesome:size=13", "Noto Color Emoji:pixelsize=13:antialias=true:autohint=true" };
-/*static const char dmenufont[]            = "monospace:size=10";*/
-static const char col_gray1[]            = COL_BG_0 /*"#1d2227"*/;
-static const char col_gray2[]            = COL_BG_1 /*"#444444"*/;
-static const char col_gray3[]            = "#bbbbbb";
-static const char col_gray4[]            = "#eeeeee";
-static const char col_fosc[]             = COL_FOSC/*"#715895""#5e497c"*/;
-static const char col_clar[]             = COL_CLAR/*"#BD93F9"*/;
-static const char col_black[]            = COL_NEGRE;
-static const char col_red[]              = COL_VERMELL;
-static const char col_yellow[]           = COL_GROC;
-static const char col_white[]            = COL_BLANC;
-static const char *colors[][3]           = {
-    /*                   fg         bg         border   */
-    [SchemeStatus]   = { col_gray3, col_gray1, col_gray2 },
-    [SchemeNorm]     = { col_gray3, col_gray1, col_gray2 },
-    [SchemeSel]      = { col_gray4, col_fosc,  col_fosc  },
-    [SchemeTagsSel]  = { col_clar,  col_gray2, "#000000"  }, /* Tagbar left selected {text,background,not used but cannot be empty} */
-    [SchemeTagsNorm] = { col_gray3, col_gray1, "#000000"  }, /* Tagbar left unselected {text,background,not used but cannot be empty} */
-    [SchemeInfoSel]  = { col_gray4, col_fosc,  "#000000"  }, /* infobar middle  selected {text,background,not used but cannot be empty} */
-    [SchemeInfoNorm] = { col_gray3, col_gray1, "#000000"  }, /* infobar middle  unselected {text,background,not used but cannot be empty} */
+static unsigned int borderpx       = 2;   /* border pixel of windows */
+static unsigned int snap           = 32;  /* snap pixel */
+static unsigned int gappih         = 7;   /* horiz inner gap between windows */
+static unsigned int gappiv         = 7;   /* vert inner gap between windows */
+static unsigned int gappoh         = 8;   /* horiz outer gap between windows and screen edge */
+static unsigned int gappov         = 8;   /* vert outer gap between windows and screen edge */
+static int smartgaps               = 1;   /* 1 means no outer gap when there is only one window */
+static int smartborders            = 1;   /* 1 means no outer gap when there is only one window */
+static unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+static unsigned int systrayonleft  = 0;   /* 0: systray in the right corner, >0: systray on left of status text */
+static unsigned int systrayspacing = 2;   /* systray spacing */
+static int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+static int showsystray             = 1;   /* 0 means no systray */
+static int showbar                 = 1;   /* 0 means no bar */
+static int topbar                  = 1;   /* 0 means bottom bar */
+static int user_bh                 = 24;  /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static char font[]                 = "Ubuntu:size=12";
+static char *fonts[]               = { font, "FontAwesome:size=13", "Noto Color Emoji:pixelsize=13:antialias=true:autohint=true" };
+static char normbgcolor[]          = "#20242c";
+static char normbordercolor[]      = "#3b4252";
+static char normfgcolor[]          = "#e5e9f0";
+static char selbgcolor[]           = "#3b4252";
+static char selfgcolor[]           = "#eceff4";
+static char primarycolor[]         = "#94628a"; /* dark emphasis  */
+static char secondarycolor[]       = "#b48ead"; /* light emphasis */
+static char *colors[][3]           = {
+    /*                   fg              bg            border   */
+    [SchemeStatus]   = { normfgcolor,    normbgcolor,  normbordercolor },
+    [SchemeNorm]     = { normfgcolor,    normbgcolor,  normbordercolor },
+    [SchemeSel]      = { selfgcolor,     primarycolor, primarycolor    },
+    [SchemeTagsSel]  = { secondarycolor, selbgcolor,   "#000000" }, /* Tagbar left selected {text,background,not used but cannot be empty} */
+    [SchemeTagsNorm] = { normfgcolor,    normbgcolor,  "#000000" }, /* Tagbar left unselected {text,background,not used but cannot be empty} */
+    [SchemeInfoSel]  = { selfgcolor,     primarycolor, "#000000" }, /* infobar middle  selected {text,background,not used but cannot be empty} */
+    [SchemeInfoNorm] = { normfgcolor,    normbgcolor,  "#000000" }, /* infobar middle  unselected {text,background,not used but cannot be empty} */
 };
 
-#define BROWSER   "brave"
+#define BROWSER   "$BROWSER"
 #define TERMINAL  "st"
 #define STATUSBAR "dwmblocks"
 #define FMANAGER  "st -e nnn"
@@ -56,8 +52,9 @@ static const Rule rules[] = {
  *	WM_CLASS(STRING) = instance, class
  *	WM_NAME(STRING) = title
  */
-    /* class      instance          title       tags mask     isfloating   issticky    monitor */
+    /* class      instance          title             tags mask  isfloating   issticky    monitor */
     { "firefox",        NULL,       NULL,              1 << 1,       0,           0,        -1 },
+    { "librewolf",      NULL,       NULL,              1 << 1,       0,           0,        -1 },
     { "Brave-browser",  NULL,       NULL,              1 << 1,       0,           0,        -1 },
     { "Spotify",        NULL,       NULL,              1 << 8,       0,           0,        -1 },
     { "zoom",           NULL,       NULL,              1 << 3,       1,           0,        -1 },
@@ -67,9 +64,9 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
-static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static int nmaster     = 1;    /* number of clients in master area */
+static int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
@@ -121,9 +118,42 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-/*static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-/*static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };*/
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { TERMINAL, NULL };
+
+/*
+ * Xresources preferences to load at startup
+ */
+ResourcePref resources[] = {
+    { "font",                    STRING,  &font },
+    { "normbgcolor",             STRING,  &normbgcolor },
+    { "normbordercolor",         STRING,  &normbordercolor },
+    { "normfgcolor",             STRING,  &normfgcolor },
+    { "selbgcolor",              STRING,  &selbgcolor },
+    { "selfgcolor",              STRING,  &selfgcolor },
+    { "primarycolor",            STRING,  &primarycolor },
+    { "secondarycolor",          STRING,  &secondarycolor },
+    { "gappih",                  INTEGER, &gappih },
+    { "gappiv",                  INTEGER, &gappiv },
+    { "gappoh",                  INTEGER, &gappoh },
+    { "gappov",                  INTEGER, &gappov },
+    { "smartgaps",               INTEGER, &smartgaps },
+    { "smartborders",            INTEGER, &smartborders },
+    { "systraypinning",          INTEGER, &systraypinning },
+    { "systrayonleft",           INTEGER, &systrayonleft },
+    { "systrayspacing",          INTEGER, &systrayspacing },
+    { "systraypinningfailfirst", INTEGER, &systraypinningfailfirst },
+    { "showsystray",             INTEGER, &showsystray },
+    { "showbar",                 INTEGER, &showbar },
+    { "topbar",                  INTEGER, &topbar },
+    { "user_bh",                 INTEGER, &user_bh },
+    { "borderpx",          	     INTEGER, &borderpx },
+    { "snap",          		     INTEGER, &snap },
+    { "showbar",          	     INTEGER, &showbar },
+    { "topbar",          	     INTEGER, &topbar },
+    { "nmaster",          	     INTEGER, &nmaster },
+    { "resizehints",       	     INTEGER, &resizehints },
+    { "mfact",      	 	     FLOAT,   &mfact },
+};
 
 #include <X11/XF86keysym.h>
 
@@ -132,6 +162,7 @@ static Key keys[] = {
     { 0,                            XK_F2,     spawn,          SHCMD("dmenu_run") },
     { ShiftMask,                    XK_F2,     spawn,          SHCMD("passmenu") },
     { MODKEY,                       XK_F2,     spawn,          SHCMD("j4-dmenu-desktop") },
+    { MODKEY,                       XK_F5,     xrdb,           {0}},
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_b,      togglebar,      {0} },
     STACKKEYS(MODKEY,                          focus)
@@ -226,18 +257,21 @@ static Key keys[] = {
 
     /* SCRIPTS */
     /* 0xa1 is the key for "'". Execute xev to discover more keys */
-    { 0,                         XK_F3,       spawn,   SHCMD("$HOME/scripts/emoji.sh") },
-    { 0,                         0xa1,        spawn,   SHCMD("flybinds") },   //
-    { 0,                         XK_Print,    spawn,   SHCMD("$HOME/scripts/captura.sh") },
-    { MODKEY,                    XK_p,        spawn,   SHCMD("$HOME/scripts/monitors.sh") },
-    { MODKEY,                    XK_c,        spawn,   SHCMD("$HOME/scripts/webcam.sh") },
-    { ControlMask|Mod1Mask,      XK_Delete,   spawn,   SHCMD("$HOME/scripts/power.sh") },
+    { 0,                         XK_F3,       spawn,   SHCMD("emoji-dmenu")   },
+    { 0,                         0xa1,        spawn,   SHCMD("flybinds")      },
+    { 0,                         XK_Print,    spawn,   SHCMD("captura")       },
+    { MODKEY,                    XK_p,        spawn,   SHCMD("flybinds c m")  }, /* SHCMD("monitors") */
+    { MODKEY,                    XK_c,        spawn,   SHCMD("webcam")        },
+    { ControlMask|Mod1Mask,      XK_Delete,   spawn,   SHCMD("flybinds x")    }, /* SHCMD("power") */
+
+    /* CAPS LOCK */
+    { MODKEY, 0xa1, spawn, SHCMD("xdotool key Caps_Lock") },
 
     /* APPS */
     { MODKEY|Mod1Mask,  XK_l,    spawn,   SHCMD("slock & xset dpms force off") },
     { MODKEY,           XK_w,    spawn,   SHCMD(BROWSER)  },
     { MODKEY,           XK_f,    spawn,   SHCMD(FMANAGER) },
-    { MODKEY,           XK_e,    spawn,   SHCMD(MAIL) },
+    { MODKEY,           XK_e,    spawn,   SHCMD(MAIL)     },
 };
 
 /* button definitions */

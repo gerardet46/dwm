@@ -1,15 +1,13 @@
 # My build of DWM
 You'll find all patches I use in the `diff` folder.
 
-It's integrated with `gcolors` (visit my repo) to make color themes easier.
+It manages the colors and the variables with `.Xresources` file, within the class `dwm`.
+Colors can be reloaded on the fly by pressing `Mod+F5`.
 
 You will also notice in the *config.h* file that there aren't to much keyboard shortcuts
 to setup the computer, as I use `flybinds` (in my repo) to configure it. In DWM when I
 press the `¡` key it opens the flybinds program. This it works thanks to **fsignals** patch,
 as I can call dwm functions from shell scripts.
-
-To flip the behaviour of `\` key, go to `/usr/share/x11/xkb/symbols/es` and flip `masculine`
-for `backslash`. It's pretended to use it with latex so I don't need to press `AltGr`
 
 ![Preview of my dwm's built](example.png)
 
