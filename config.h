@@ -44,7 +44,7 @@ static char *colors[][3]           = {
 #define MAIL      "st -e neomutt ; pkill -RTMIN+12 dwmblocks"
 
 /* tagging */
-static const char *tags[] = { "  ", "  ", "  ", "  ", "  ", " 6 ", " 7 ", " 8 ", "  " };
+static const char *tags[] = { "  ", "  ", "  ", "  ", "  ", " 6 ", " 7 ", " 8 ", "  " };
 static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
@@ -54,13 +54,15 @@ static const Rule rules[] = {
  */
     /* class      instance          title             tags mask  isfloating   issticky    monitor */
     { "firefox",        NULL,       NULL,              1 << 1,       0,           0,        -1 },
-    { "librewolf",      NULL,       NULL,              1 << 1,       0,           0,        -1 },
+    { "librewolf",      NULL,       NULL,              0 << 1,       0,           0,        -1 },
+    { "Navigator",      NULL,       NULL,              1 << 1,       0,           0,        -1 },
     { "Brave-browser",  NULL,       NULL,              1 << 1,       0,           0,        -1 },
     { "Spotify",        NULL,       NULL,              1 << 8,       0,           0,        -1 },
     { "zoom",           NULL,       NULL,              1 << 3,       1,           0,        -1 },
     { "zoom",           NULL,       "Zoom Meeting",    1 << 3,       0,           0,        -1 },
     { "TelegramDesktop",NULL,       NULL,              1 << 4,       0,           0,        -1 },
     { "mpv",            NULL,       "video0 - mpv",    0,            1,           1,        -1 },
+    { "lxqt-openssh-askpass",   NULL, NULL,            0,            1,           0,        -1 },
 };
 
 /* layout(s) */
@@ -76,20 +78,20 @@ static const Layout layouts[] = {
     { "[]=",   tile },    /* first entry is default */
     { "[M]",   monocle },
 
-    { "[@]",   spiral },
-    { "[\\]",  dwindle },
+    /*{ "[@]",   spiral },
+      { "[\\]",  dwindle },*/
 
     { "H[]",   deck },
     { "TTT",   bstack },
 
-    { "|M|",   centeredmaster },
+    /*{ "|M|",   centeredmaster },
     { ">M>",   centeredfloatingmaster },
 
     { "###",   nrowgrid },
     { "---",   horizgrid },
     { ":::",   gaplessgrid },
     { "===",   bstackhoriz },
-    { "HHH",   grid },
+    { "HHH",   grid },*/
     { "><>",   NULL },    /* no layout function means floating behavior */
     { NULL,    NULL },
 };
@@ -148,8 +150,6 @@ ResourcePref resources[] = {
     { "user_bh",                 INTEGER, &user_bh },
     { "borderpx",          	     INTEGER, &borderpx },
     { "snap",          		     INTEGER, &snap },
-    { "showbar",          	     INTEGER, &showbar },
-    { "topbar",          	     INTEGER, &topbar },
     { "nmaster",          	     INTEGER, &nmaster },
     { "resizehints",       	     INTEGER, &resizehints },
     { "mfact",      	 	     FLOAT,   &mfact },
@@ -161,7 +161,7 @@ static Key keys[] = {
     /* modifier                     key        function        argument */
     { 0,                            XK_F2,     spawn,          SHCMD("dmenu_run") },
     { ShiftMask,                    XK_F2,     spawn,          SHCMD("passmenu") },
-    { MODKEY,                       XK_F2,     spawn,          SHCMD("j4-dmenu-desktop") },
+    { MODKEY,                       XK_F2,     spawn,          SHCMD("mydmenu_run") },
     { MODKEY,                       XK_F5,     xrdb,           {0}},
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_b,      togglebar,      {0} },
@@ -195,13 +195,9 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_Tab,    cyclelayout,    {.i = -1} },
     { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* default */
-    { MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} }, /* bstack */
-    { MODKEY,	                    XK_y,      setlayout,      {.v = &layouts[2]} }, /* spiral */
-    { MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[3]} }, /* dwindle */
-    { MODKEY,	                    XK_u,      setlayout,      {.v = &layouts[4]} }, /* deck */
-    { MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[5]} }, /* monocle */
-    { MODKEY,	                    XK_i,      setlayout,      {.v = &layouts[6]} }, /* centeredmaster */
-    { MODKEY|ShiftMask,             XK_i,      setlayout,      {.v = &layouts[7]} }, /* centeredfloatingmaster */
+    { MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[3]} }, /* bstack */
+    { MODKEY,	                    XK_u,      setlayout,      {.v = &layouts[2]} }, /* deck */
+    { MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[1]} }, /* monocle */
     { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
     { MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
     { MODKEY,                       XK_s,      togglesticky,   {0} },
@@ -227,7 +223,7 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_r,      quit,           {1} }, 
 
     /* VOLUM - BRILLANTOR */
-    { 0, XF86XK_AudioMute,          spawn,    SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle && kill -44 $(pidof dwmblocks)") },
+    /*{ 0, XF86XK_AudioMute,          spawn,    SHCMD("pactl set-sink-mute @DEFAULT_SINK@ toggle && kill -44 $(pidof dwmblocks)") },
     { 0, XF86XK_AudioRaiseVolume,   spawn,    SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && kill -44 $(pidof dwmblocks)") },
     { 0, XF86XK_AudioLowerVolume,   spawn,    SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && kill -44 $(pidof dwmblocks)") },
     { 0, XF86XK_MonBrightnessUp,    spawn,    SHCMD("light -A 3") },
@@ -254,24 +250,25 @@ static Key keys[] = {
     { 0, XF86XK_TouchpadToggle,     spawn,    SHCMD("(synclient | grep 'TouchpadOff.*1' && synclient TouchpadOff=0) || synclient TouchpadOff=1") },
     { 0, XF86XK_TouchpadOff,        spawn,    SHCMD("synclient TouchpadOff=1") },
     { 0, XF86XK_TouchpadOn,         spawn,    SHCMD("synclient TouchpadOff=0") },
+    */
 
     /* SCRIPTS */
     /* 0xa1 is the key for "'". Execute xev to discover more keys */
-    { 0,                         XK_F3,       spawn,   SHCMD("emoji-dmenu")   },
+    /*{ 0,                         XK_F3,       spawn,   SHCMD("dm-emoji")   },
     { 0,                         0xa1,        spawn,   SHCMD("flybinds")      },
-    { 0,                         XK_Print,    spawn,   SHCMD("captura")       },
+    { 0,                         XK_Print,    spawn,   SHCMD("dm-captura")       },
     { MODKEY,                    XK_p,        spawn,   SHCMD("flybinds c m")  }, /* SHCMD("monitors") */
-    { MODKEY,                    XK_c,        spawn,   SHCMD("webcam")        },
+    /*{ MODKEY,                    XK_c,        spawn,   SHCMD("webcam")        },
     { ControlMask|Mod1Mask,      XK_Delete,   spawn,   SHCMD("flybinds x")    }, /* SHCMD("power") */
 
     /* CAPS LOCK */
-    { MODKEY, 0xa1, spawn, SHCMD("xdotool key Caps_Lock") },
+    /*{ MODKEY, 0xa1, spawn, SHCMD("xdotool key Caps_Lock") },*/
 
     /* APPS */
-    { MODKEY|Mod1Mask,  XK_l,    spawn,   SHCMD("slock & xset dpms force off") },
+    /*{ MODKEY|Mod1Mask,  XK_l,    spawn,   SHCMD("slock & xset dpms force off") },
     { MODKEY,           XK_w,    spawn,   SHCMD(BROWSER)  },
     { MODKEY,           XK_f,    spawn,   SHCMD(FMANAGER) },
-    { MODKEY,           XK_e,    spawn,   SHCMD(MAIL)     },
+    { MODKEY,           XK_e,    spawn,   SHCMD(MAIL)     },*/
 };
 
 /* button definitions */
@@ -279,7 +276,7 @@ static Key keys[] = {
 static Button buttons[] = {
     /* click                event mask      button          function        argument */
     { ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-    { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+    { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[1]} },
     { ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
     { ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
     { ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
@@ -299,13 +296,9 @@ static Signal signals[] = {
     /* signum function      argument  */
     /* LAYOUTS */
     { 0,      setlayout,    {.v = &layouts[0]} }, /* default */
-    { 1,      setlayout,    {.v = &layouts[1]} }, /* bstack */
-    { 2,      setlayout,    {.v = &layouts[2]} }, /* spiral */
-    { 3,      setlayout,    {.v = &layouts[3]} }, /* dwindle */
-    { 4,      setlayout,    {.v = &layouts[4]} }, /* deck */
-    { 5,      setlayout,    {.v = &layouts[5]} }, /* monocle */
-    { 6,      setlayout,    {.v = &layouts[6]} }, /* centeredmaster */
-    { 7,      setlayout,    {.v = &layouts[7]} }, /* centeredfloatingmaster */
+    { 1,      setlayout,    {.v = &layouts[3]} }, /* bstack */
+    { 4,      setlayout,    {.v = &layouts[2]} }, /* deck */
+    { 5,      setlayout,    {.v = &layouts[1]} }, /* monocle */
 
     /* DWM MISC */
     { 10,     killclient,   {0}        },
