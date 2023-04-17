@@ -1103,6 +1103,17 @@ drawbar(Monitor *m)
 		drw_text(drw, x, 0, w, bh, wdelta + lrpad / 2, (selmon->alttag ? tagsalt[i] : tags[i]), urg & 1 << i);
 		x += w;
 	}
+
+    if (mons->next) {
+        /* draw mon index if monitor not unique */
+        char monindex[10];
+        sprintf(monindex, "mon%d", m->num + 1);
+
+        w = TEXTW(monindex);
+        drw_setscheme(drw, scheme[SchemeTagsNorm]);
+        x = drw_text(drw, x, 0, w, bh, lrpad / 2, (const char*)monindex, 0);
+    }
+
 	w = blw = TEXTW(m->ltsymbol);
 	drw_setscheme(drw, scheme[SchemeTagsNorm]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
