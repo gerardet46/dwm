@@ -17,8 +17,8 @@ static int showsystray             = 1;   /* 0 means no systray */
 static int showbar                 = 1;   /* 0 means no bar */
 static int topbar                  = 1;   /* 0 means bottom bar */
 static int user_bh                 = 24;  /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static char font[]                 = "Ubuntu:size=12";
-static char *fonts[]               = { font, "FontAwesome:size=13", "Noto Color Emoji:pixelsize=13:antialias=true:autohint=true" };
+static char font[]                 = "Ubuntu:size=11";
+static char *fonts[]               = { font, "Font Awesome 6:size=13", "Noto Color Emoji:pixelsize=12:antialias=true:autohint=true" };
 static char normbgcolor[]          = "#20242c";
 static char normbordercolor[]      = "#3b4252";
 static char normfgcolor[]          = "#e5e9f0";
@@ -53,7 +53,7 @@ static const Rule rules[] = {
  *	WM_NAME(STRING) = title
  */
     /* class      instance          title             tags mask  isfloating   issticky    monitor */
-    { "firefox",        NULL,       NULL,              1 << 1,       0,           0,        -1 },
+    { "Firefox",        NULL,       NULL,              1 << 1,       0,           0,        -1 },
     { "librewolf",      NULL,       NULL,              0 << 1,       0,           0,        -1 },
     { "Navigator",      NULL,       NULL,              1 << 1,       0,           0,        -1 },
     { "Brave-browser",  NULL,       NULL,              1 << 1,       0,           0,        -1 },
