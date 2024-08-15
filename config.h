@@ -3,10 +3,10 @@
 /* appearance */
 static unsigned int borderpx       = 2;   /* border pixel of windows */
 static unsigned int snap           = 32;  /* snap pixel */
-static unsigned int gappih         = 7;   /* horiz inner gap between windows */
-static unsigned int gappiv         = 7;   /* vert inner gap between windows */
-static unsigned int gappoh         = 8;   /* horiz outer gap between windows and screen edge */
-static unsigned int gappov         = 8;   /* vert outer gap between windows and screen edge */
+static unsigned int gappih         = 0;   /* horiz inner gap between windows */
+static unsigned int gappiv         = 0;   /* vert inner gap between windows */
+static unsigned int gappoh         = 0;   /* horiz outer gap between windows and screen edge */
+static unsigned int gappov         = 0;   /* vert outer gap between windows and screen edge */
 static int smartgaps               = 1;   /* 1 means no outer gap when there is only one window */
 static int smartborders            = 1;   /* 1 means no outer gap when there is only one window */
 static unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
@@ -57,6 +57,7 @@ static const Rule rules[] = {
     { "librewolf",      NULL,       NULL,              0 << 1,       0,           0,        -1 },
     { "Navigator",      NULL,       NULL,              1 << 1,       0,           0,        -1 },
     { "Brave-browser",  NULL,       NULL,              1 << 1,       0,           0,        -1 },
+    { "scrcpy",         NULL,       NULL,              1 << 3,       0,           0,        -1 },
     { "Spotify",        NULL,       NULL,              1 << 8,       0,           0,        -1 },
     { "zoom",           NULL,       NULL,              1 << 3,       1,           0,        -1 },
     { "zoom",           NULL,       "Zoom Meeting",    1 << 3,       0,           0,        -1 },
@@ -159,9 +160,6 @@ ResourcePref resources[] = {
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
-    { 0,                            XK_F2,     spawn,          SHCMD("dmenu_run") },
-    { ShiftMask,                    XK_F2,     spawn,          SHCMD("passmenu") },
-    { MODKEY,                       XK_F2,     spawn,          SHCMD("mydmenu_run") },
     { MODKEY,                       XK_F5,     xrdb,           {0}},
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_b,      togglebar,      {0} },
